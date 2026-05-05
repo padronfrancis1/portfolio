@@ -175,6 +175,9 @@
     max-width: 52ch;
     margin: 0 0 32px;
   }
+  .hero-copy {
+    max-width: 760px;
+  }
   .hero-exp {
     list-style: none;
     margin: 16px 0 32px;
@@ -940,6 +943,142 @@
     .syspanel-stats { grid-template-columns: 1fr 1fr; }
     .section-head { grid-template-columns: 1fr; }
     .chat { height: 480px; }
+    .arch-flow { gap: 14px; }
+    .arch-step-num { font-size: 12px; }
+    .arch-step-title { font-size: 16px; }
+    .arch-tools-grid { grid-template-columns: repeat(2, 1fr); }
+    .arch-concepts { grid-template-columns: 1fr; }
+  }
+
+  /* ───────── Agent architecture section ───────── */
+  #ai-architecture { padding: clamp(56px, 8vh, 96px) 0 clamp(36px, 5vh, 64px); }
+  .arch-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 32px;
+  }
+  .arch-step {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 18px;
+    align-items: center;
+    padding: 18px 22px;
+    background: var(--panel);
+    border: 1px solid var(--border-strong);
+    border-radius: 14px;
+    transition: border-color 200ms ease, transform 200ms ease;
+  }
+  .arch-step:hover {
+    border-color: var(--accent);
+    transform: translateX(4px);
+  }
+  .arch-step-num {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink-dim);
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+  .arch-step-body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .arch-step-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .arch-step-icon {
+    font-size: 22px;
+    line-height: 1;
+  }
+  .arch-step-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: -0.005em;
+  }
+  .arch-step-sub {
+    font-size: 14px;
+    color: var(--ink-mid);
+    margin: 0;
+    line-height: 1.5;
+  }
+  .arch-step-sub code {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--ink);
+    background: var(--bg-elev);
+    padding: 1px 6px;
+    border-radius: 4px;
+  }
+  .arch-tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-top: 6px;
+  }
+  .arch-tool {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-mid);
+  }
+  .arch-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-faint);
+    font-size: 18px;
+    line-height: 1;
+    padding: 0 0 0 28px;
+  }
+  .arch-arrow .arch-loop {
+    margin-left: 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+  .arch-concepts {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 36px;
+  }
+  .arch-concept {
+    padding: 20px 22px;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .arch-concept h4 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 0 0 8px;
+    letter-spacing: 0;
+  }
+  .arch-concept p {
+    font-size: 14px;
+    color: var(--ink-mid);
+    line-height: 1.55;
+    margin: 0;
+  }
+  .arch-concept p code {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--ink);
   }
 </style>
 </head>
@@ -1031,6 +1170,100 @@
         <div class="logo-cell"><img src="NimbusHailRepair.png" alt="Nimbus Hail Repair" loading="lazy" /></div>
         <div class="logo-cell"><img src="Rise_black_font.jpg" alt="Rise" loading="lazy" /></div>
         <div class="logo-cell"><img src="Havenz-Tech_Horizontal_GradientBlack.png.png" alt="Havenz Tech" loading="lazy" /></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── AI Architecture ───────── -->
+  <section id="ai-architecture">
+    <div class="shell">
+      <div class="section-head rv">
+        <div>
+          <h2 class="section-title">How the agent <em>actually works.</em></h2>
+          <p class="section-sub" style="color: var(--ink-mid); margin-top: 8px; max-width: 720px; line-height: 1.55;">
+            A Claude Code-style multi-agent system. One orchestrator decides which tools to call, iteratively, until it has enough context to answer. Same pattern Anthropic, Cursor, and modern agentic apps run on — built from scratch in FastAPI + Next.js.
+          </p>
+        </div>
+        <a class="section-link" href="#ai-demo">See it live ↓</a>
+      </div>
+
+      <div class="arch-flow rv">
+        <div class="arch-step">
+          <div class="arch-step-num">01</div>
+          <div class="arch-step-body">
+            <div class="arch-step-row">
+              <span class="arch-step-icon" aria-hidden="true">💬</span>
+              <h3 class="arch-step-title">User asks a question</h3>
+            </div>
+            <p class="arch-step-sub">Free-form natural language. No prompt engineering required.</p>
+          </div>
+        </div>
+
+        <div class="arch-arrow" aria-hidden="true">↓</div>
+
+        <div class="arch-step">
+          <div class="arch-step-num">02</div>
+          <div class="arch-step-body">
+            <div class="arch-step-row">
+              <span class="arch-step-icon" aria-hidden="true">🧠</span>
+              <h3 class="arch-step-title">Orchestrator reasons (Sonnet 4.6)</h3>
+            </div>
+            <p class="arch-step-sub">Reads the question, picks which tools to call. Can call multiple tools in parallel. Iterates up to 10 times per turn.</p>
+          </div>
+        </div>
+
+        <div class="arch-arrow" aria-hidden="true">↓</div>
+
+        <div class="arch-step">
+          <div class="arch-step-num">03</div>
+          <div class="arch-step-body">
+            <div class="arch-step-row">
+              <span class="arch-step-icon" aria-hidden="true">🔧</span>
+              <h3 class="arch-step-title">Tool registry — 6 typed tools</h3>
+            </div>
+            <p class="arch-step-sub">Each tool is a function with a JSON schema the LLM can call directly.</p>
+            <div class="arch-tools-grid">
+              <span class="arch-tool">🔍 Search Resume</span>
+              <span class="arch-tool">📋 Find Keywords</span>
+              <span class="arch-tool">📄 Read Section</span>
+              <span class="arch-tool">📚 List Projects</span>
+              <span class="arch-tool">🌿 Spawn Sub-agent</span>
+              <span class="arch-tool">🎙 Apply Voice Skill</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="arch-arrow" aria-hidden="true">↓ <span class="arch-loop">↺ loop</span></div>
+
+        <div class="arch-step">
+          <div class="arch-step-num">04</div>
+          <div class="arch-step-body">
+            <div class="arch-step-row">
+              <span class="arch-step-icon" aria-hidden="true">✨</span>
+              <h3 class="arch-step-title">Synthesized answer streams back</h3>
+            </div>
+            <p class="arch-step-sub">Token by token via Server-Sent Events. The chat UI renders each tool call inline as a collapsible accordion.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="arch-concepts rv">
+        <div class="arch-concept">
+          <h4>Iterative loop</h4>
+          <p>Same <code>while(true)</code> pattern as Claude Code's <code>queryLoop</code>. The orchestrator calls a tool, reads the result, decides whether to call more tools or write the final answer.</p>
+        </div>
+        <div class="arch-concept">
+          <h4>Tool-use protocol</h4>
+          <p>The LLM emits structured <code>tool_use</code> blocks. Each tool's input is validated against a JSON schema before execution. If a tool fails, the error returns to the LLM as a <code>tool_result</code> so it can recover.</p>
+        </div>
+        <div class="arch-concept">
+          <h4>Sub-agent isolation</h4>
+          <p>The <code>Spawn Sub-agent</code> tool creates a Haiku 4.5 instance with a fresh context window and a restricted tool set. It runs its own loop and returns only a digest — no leakage of intermediate state into the parent.</p>
+        </div>
+        <div class="arch-concept">
+          <h4>Production plumbing</h4>
+          <p>FastAPI backend, Next.js frontend, both deployed to Vercel. SSE event streaming. Stub LLM mode for cost control during demos. 361 unit tests on the frontend.</p>
+        </div>
       </div>
     </div>
   </section>
