@@ -182,13 +182,18 @@
   }
   /* ───────── Live chat section (full width, always open) ───────── */
   #ai-demo { padding: clamp(36px, 5vh, 56px) 0 clamp(28px, 4vh, 48px); }
-  .chat-section-frame {
+  .chat-section-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 260px;
+    gap: 24px;
+    align-items: start;
     margin-top: 18px;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .chat-section-iframe {
     width: 100%;
-    max-width: 820px;
-    margin: 0 auto;
     height: 480px;
     border: 1px solid var(--border-strong);
     border-radius: 14px;
@@ -196,7 +201,43 @@
     display: block;
     box-shadow: 0 16px 50px rgba(0, 0, 0, 0.4);
   }
-  @media (max-width: 768px) {
+  .chat-prompts {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 16px 12px;
+  }
+  .chat-prompts-label {
+    margin: 0 0 6px;
+    padding: 0 4px;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+  }
+  .chat-prompt {
+    text-align: left;
+    background: var(--panel);
+    border: 1px solid var(--border-strong);
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-family: var(--sans);
+    font-size: 13px;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+  }
+  .chat-prompt:hover,
+  .chat-prompt:focus-visible {
+    border-color: var(--accent);
+    background: var(--panel-2);
+    transform: translateX(2px);
+    outline: none;
+  }
+  @media (max-width: 900px) {
+    .chat-section-grid { grid-template-columns: 1fr; }
+    .chat-prompts { padding: 0; }
     .chat-section-iframe { height: 440px; }
   }
 
@@ -1322,18 +1363,30 @@
     <div class="shell">
       <div class="section-head rv">
         <div>
-          <h2 class="section-title">Live <em>multi-agent chat.</em></h2>
+          <h2 class="section-title">Chat with my <em>assistant.</em></h2>
         </div>
         <a class="section-link" href="https://portfolio-agent-frontend-padronfrancis1s-projects.vercel.app/chat" target="_blank" rel="noopener">Open full screen ↗</a>
       </div>
 
-      <div class="chat-section-frame rv">
+      <div class="chat-section-grid rv">
         <iframe
           class="chat-section-iframe"
+          id="chat-section-iframe"
           src="https://portfolio-agent-frontend-padronfrancis1s-projects.vercel.app/chat"
           title="Live multi-agent chatbot"
           loading="lazy"
         ></iframe>
+
+        <aside class="chat-prompts" aria-label="Suggested questions">
+          <p class="chat-prompts-label">Try asking</p>
+          <button type="button" class="chat-prompt" data-q="Tell me about Francis's RAG work">RAG work?</button>
+          <button type="button" class="chat-prompt" data-q="What agentic systems has Francis built?">Agentic systems?</button>
+          <button type="button" class="chat-prompt" data-q="What's his experience with LangGraph and LangChain?">LangGraph + LangChain?</button>
+          <button type="button" class="chat-prompt" data-q="What's his tech stack?">Tech stack?</button>
+          <button type="button" class="chat-prompt" data-q="What LLMs has Francis fine-tuned and how?">Fine-tuning approach?</button>
+          <button type="button" class="chat-prompt" data-q="What are his core skills as an AI engineer?">Core skills?</button>
+          <button type="button" class="chat-prompt" data-q="Tell me about HavenzHub-AI">HavenzHub-AI?</button>
+        </aside>
       </div>
     </div>
   </section>
@@ -1871,6 +1924,20 @@
     }
   })();
 
+  /* ───────── Suggested questions → chat iframe via postMessage ───────── */
+  (function () {
+    var prompts = document.querySelectorAll('.chat-prompt');
+    var iframe = document.getElementById('chat-section-iframe');
+    if (!iframe || !prompts.length) return;
+    prompts.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var q = btn.dataset.q;
+        if (!q || !iframe.contentWindow) return;
+        // Send to chat iframe; the Next.js chat listens for 'portfolio:ask'
+        iframe.contentWindow.postMessage({ type: 'portfolio:ask', text: q }, '*');
+      });
+    });
+  })();
 
 </script>
 
