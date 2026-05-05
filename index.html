@@ -618,10 +618,19 @@
     display: block;
     width: 100%;
     aspect-ratio: 16 / 9;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 8px;
     border: 1px solid var(--border);
     background: var(--bg-elev);
+  }
+  .proj-image-link {
+    display: block;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: border-color 220ms ease, transform 220ms ease;
+  }
+  .proj-image-link:hover .proj-image {
+    border-color: var(--accent);
   }
   .proj-private-tag {
     display: inline-flex;
@@ -1683,7 +1692,9 @@
             <span class="proj-num">01</span>
             <span class="proj-type">Predictive ML · Open Source</span>
           </div>
-          <img class="proj-image" src="ufc_predictor.png" alt="UFC Fight Predictor — calibration and ROI charts" loading="lazy" />
+          <a class="proj-image-link" href="ufc_predictor.png" target="_blank" rel="noopener" aria-label="Open UFC Fight Predictor screenshot in new tab">
+            <img class="proj-image" src="ufc_predictor.png" alt="UFC Fight Predictor — calibration and ROI charts" loading="lazy" />
+          </a>
           <h3 class="proj-title">UFC Fight Predictor</h3>
           <p class="proj-desc">LightGBM + Optuna + isotonic calibration that beats Vegas on 628 held-out 2025-26 fights (72.5% vs 69.8% acc, +4.7% Brier). +17.6% flat-stake ROI on edge ≥5% picks; quarter-Kelly turns $100 into ~$47K. Chronological no-leakage split, ELO computed in-time, SHAP attribution, bootstrap 95% CIs, 249 tests, mypy strict, GitHub Actions CI.</p>
           <div class="proj-tags">
@@ -1697,7 +1708,9 @@
             <span class="proj-num">02</span>
             <span class="proj-type">Agentic AI Demo</span>
           </div>
-          <img class="proj-image" src="portfolio_agent.png" alt="Portfolio-Agent — Claude Code-style multi-agent chat UI" loading="lazy" />
+          <a class="proj-image-link" href="portfolio_agent.png" target="_blank" rel="noopener" aria-label="Open Portfolio-Agent screenshot in new tab">
+            <img class="proj-image" src="portfolio_agent.png" alt="Portfolio-Agent — Claude Code-style multi-agent chat UI" loading="lazy" />
+          </a>
           <h3 class="proj-title">Portfolio-Agent (this chat)</h3>
           <p class="proj-desc">A Claude Code-style agent loop you can chat with at the top of this page. Sonnet 4.6 supervisor iteratively calls typed tools and spawns Haiku 4.5 sub-agents over a Qdrant-indexed corpus, with live orchestration animation, per-agent token meter, and USD cost tracking.</p>
           <div class="proj-tags">
@@ -1711,7 +1724,9 @@
             <span class="proj-num">03</span>
             <span class="proj-type">Computer Vision</span>
           </div>
-          <img class="proj-image" src="hail_cv.gif" alt="Hail-dent CV pipeline — ensemble detection on auto-body panels" loading="lazy" />
+          <a class="proj-image-link" href="hail_cv.gif" target="_blank" rel="noopener" aria-label="Open Hail-dent CV demo in new tab">
+            <img class="proj-image" src="hail_cv.gif" alt="Hail-dent CV pipeline — ensemble detection on auto-body panels" loading="lazy" />
+          </a>
           <h3 class="proj-title">Hail-dent CV pipeline</h3>
           <p class="proj-desc">Ensemble vision system (YOLOv8 + Mask R-CNN + Mask2Former + RF-DETR) replacing manual auto-body inspection. Detection first, mask refinement next, transformer pass for difficult panels. 70% faster than manual inspection.</p>
           <div class="proj-tags">
@@ -1725,7 +1740,9 @@
             <span class="proj-num">04</span>
             <span class="proj-type">Time-series Forecasting</span>
           </div>
-          <img class="proj-image" src="aeso_pool_price.png" alt="AESO electricity pool-price forecast — regime-switching model" loading="lazy" />
+          <a class="proj-image-link" href="aeso_pool_price.png" target="_blank" rel="noopener" aria-label="Open AESO pool-price forecast in new tab">
+            <img class="proj-image" src="aeso_pool_price.png" alt="AESO electricity pool-price forecast — regime-switching model" loading="lazy" />
+          </a>
           <h3 class="proj-title">AESO Pool-Price Forecasting</h3>
           <p class="proj-desc">Regime-switching LightGBM with walk-forward CV on Alberta AESO pool-price data. Designed for volatile, regime-shifting electricity markets where a single global model collapses — separate regressors per regime with a routing classifier on top.</p>
           <div class="proj-tags">
