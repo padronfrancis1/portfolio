@@ -128,9 +128,13 @@
   }
   .hero-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: clamp(28px, 5vw, 72px);
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(28px, 5vw, 56px);
     align-items: center;
+  }
+  @media (max-width: 900px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-chat-frame { height: 540px; }
   }
   .hero-pill {
     display: inline-flex; align-items: center; gap: 8px;
@@ -175,8 +179,34 @@
     max-width: 52ch;
     margin: 0 0 32px;
   }
-  .hero-copy {
-    max-width: 760px;
+  .hero-chat-frame {
+    width: 100%;
+    height: 600px;
+    border: 1px solid var(--border-strong);
+    border-radius: 14px;
+    background: #0a0a0a;
+    display: block;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  }
+  .hero-chat-label {
+    margin: 0 0 10px;
+    padding-left: 4px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+  }
+  .hero-chat-label .live-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 0 3px var(--green-soft);
+    margin-right: 8px;
+    vertical-align: middle;
+    animation: pulse 2.4s ease-in-out infinite;
   }
   .hero-exp {
     list-style: none;
@@ -1245,15 +1275,18 @@
               <span class="hero-exp-yrs"><span class="big">2</span>+ years experience</span>
             </li>
           </ul>
+        </div>
 
-          <button type="button" class="ask-trigger rv" id="ask-trigger" aria-haspopup="dialog" aria-controls="chat-dialog">
-            <span class="ask-trigger-icon" aria-hidden="true">F</span>
-            <span class="ask-trigger-text">Ask me anything about Francis...</span>
-            <span class="ask-trigger-arrow" aria-hidden="true">→</span>
-          </button>
-          <p class="ask-trigger-hint">
-            <span class="live-dot" aria-hidden="true"></span>Live multi-agent chat — orchestrator + 6 tools
+        <div class="hero-chat rv">
+          <p class="hero-chat-label">
+            <span class="live-dot" aria-hidden="true"></span>Live multi-agent chat
           </p>
+          <iframe
+            class="hero-chat-frame"
+            src="https://portfolio-agent-frontend-padronfrancis1s-projects.vercel.app/chat"
+            title="Live multi-agent chatbot"
+            loading="lazy"
+          ></iframe>
         </div>
       </div>
     </div>
@@ -1625,22 +1658,6 @@
     </div>
   </section>
 
-  <!-- ───────── Chat dialog (lazy-loaded iframe) ───────── -->
-  <dialog id="chat-dialog" aria-labelledby="chat-dialog-title">
-    <div class="chat-modal-head">
-      <span class="chat-modal-title">
-        <span class="live-dot" aria-hidden="true"></span>
-        <span id="chat-dialog-title">Live multi-agent chat</span>
-      </span>
-      <button type="button" class="chat-modal-close" id="chat-dialog-close" aria-label="Close chat">Close · Esc</button>
-    </div>
-    <iframe
-      class="chat-modal-frame"
-      id="chat-dialog-frame"
-      title="Live multi-agent chatbot demo"
-      data-src="https://portfolio-agent-frontend-padronfrancis1s-projects.vercel.app/chat"
-    ></iframe>
-  </dialog>
 
 </main>
 
@@ -1742,43 +1759,6 @@
     }
   })();
 
-  /* ───────── Chat dialog (lazy-load iframe on first open) ───────── */
-  (function () {
-    var trigger = document.getElementById('ask-trigger');
-    var dialog = document.getElementById('chat-dialog');
-    var closeBtn = document.getElementById('chat-dialog-close');
-    var frame = document.getElementById('chat-dialog-frame');
-    if (!trigger || !dialog || !closeBtn || !frame) return;
-
-    function openDialog() {
-      // Lazy-load iframe on first open
-      if (!frame.src && frame.dataset.src) {
-        frame.src = frame.dataset.src;
-      }
-      if (typeof dialog.showModal === 'function') {
-        dialog.showModal();
-      } else {
-        dialog.setAttribute('open', '');
-      }
-    }
-
-    function closeDialog() {
-      if (typeof dialog.close === 'function') {
-        dialog.close();
-      } else {
-        dialog.removeAttribute('open');
-      }
-    }
-
-    trigger.addEventListener('click', openDialog);
-    closeBtn.addEventListener('click', closeDialog);
-
-    // Close when backdrop is clicked (the dialog itself receives the click,
-    // but children — the head bar and iframe — don't propagate beyond their own bounds)
-    dialog.addEventListener('click', function (e) {
-      if (e.target === dialog) closeDialog();
-    });
-  })();
 
 </script>
 
