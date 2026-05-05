@@ -943,142 +943,149 @@
     .syspanel-stats { grid-template-columns: 1fr 1fr; }
     .section-head { grid-template-columns: 1fr; }
     .chat { height: 480px; }
-    .arch-flow { gap: 14px; }
-    .arch-step-num { font-size: 12px; }
-    .arch-step-title { font-size: 16px; }
-    .arch-tools-grid { grid-template-columns: repeat(2, 1fr); }
-    .arch-concepts { grid-template-columns: 1fr; }
+    .ask-trigger { padding: 14px 16px; }
+    .ask-trigger-text { font-size: 14px; }
+    #chat-dialog .chat-modal-frame { height: 70vh; }
   }
 
-  /* ───────── Agent architecture section ───────── */
-  #ai-architecture { padding: clamp(56px, 8vh, 96px) 0 clamp(36px, 5vh, 64px); }
-  .arch-flow {
+  /* ───────── Hero chat trigger (slim "Ask me anything…" input) ───────── */
+  .ask-trigger {
     display: flex;
-    flex-direction: column;
-    gap: 18px;
-    margin-top: 32px;
-  }
-  .arch-step {
-    display: grid;
-    grid-template-columns: 56px 1fr;
-    gap: 18px;
     align-items: center;
-    padding: 18px 22px;
+    gap: 14px;
+    width: 100%;
+    max-width: 560px;
+    margin: 28px 0 8px;
+    padding: 16px 20px;
     background: var(--panel);
     border: 1px solid var(--border-strong);
-    border-radius: 14px;
-    transition: border-color 200ms ease, transform 200ms ease;
+    border-radius: 999px;
+    cursor: text;
+    transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+    font-family: var(--sans);
+    text-align: left;
   }
-  .arch-step:hover {
+  .ask-trigger:hover,
+  .ask-trigger:focus-visible {
     border-color: var(--accent);
-    transform: translateX(4px);
+    background: var(--panel-2);
+    transform: translateY(-1px);
+    outline: none;
   }
-  .arch-step-num {
-    font-family: var(--mono);
+  .ask-trigger-icon {
+    flex: 0 0 auto;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: grid;
+    place-items: center;
+    color: #0A0B10;
+    font-weight: 700;
     font-size: 13px;
-    color: var(--ink-dim);
-    letter-spacing: 0.08em;
-    font-weight: 600;
+    box-shadow: 0 0 0 4px var(--accent-soft);
   }
-  .arch-step-body {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .arch-step-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .arch-step-icon {
-    font-size: 22px;
-    line-height: 1;
-  }
-  .arch-step-title {
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--ink);
-    margin: 0;
+  .ask-trigger-text {
+    flex: 1;
+    font-size: 15px;
+    color: var(--ink-mid);
     letter-spacing: -0.005em;
   }
-  .arch-step-sub {
-    font-size: 14px;
-    color: var(--ink-mid);
-    margin: 0;
-    line-height: 1.5;
+  .ask-trigger-arrow {
+    flex: 0 0 auto;
+    color: var(--ink-dim);
+    font-size: 16px;
+    transition: transform 180ms ease, color 180ms ease;
   }
-  .arch-step-sub code {
+  .ask-trigger:hover .ask-trigger-arrow,
+  .ask-trigger:focus-visible .ask-trigger-arrow {
+    transform: translateX(4px);
+    color: var(--accent);
+  }
+  .ask-trigger-hint {
+    margin: 0 0 32px;
+    padding-left: 20px;
     font-family: var(--mono);
-    font-size: 12.5px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--ink-dim);
+  }
+  .ask-trigger-hint .live-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 0 3px var(--green-soft);
+    margin-right: 8px;
+    vertical-align: middle;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+
+  /* ───────── Chat modal dialog ───────── */
+  #chat-dialog {
+    border: 1px solid var(--border-strong);
+    border-radius: 16px;
+    padding: 0;
+    background: var(--bg-elev);
     color: var(--ink);
-    background: var(--bg-elev);
-    padding: 1px 6px;
-    border-radius: 4px;
+    width: min(1080px, 92vw);
+    max-width: 92vw;
+    max-height: 88vh;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
   }
-  .arch-tools-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-top: 6px;
+  #chat-dialog::backdrop {
+    background: rgba(8, 9, 14, 0.72);
+    backdrop-filter: blur(6px);
   }
-  .arch-tool {
-    display: inline-flex;
+  #chat-dialog .chat-modal-head {
+    display: flex;
     align-items: center;
-    gap: 6px;
-    padding: 6px 10px;
-    background: var(--bg-elev);
-    border: 1px solid var(--border);
-    border-radius: 8px;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
     font-family: var(--mono);
     font-size: 12px;
     color: var(--ink-mid);
-  }
-  .arch-arrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--ink-faint);
-    font-size: 18px;
-    line-height: 1;
-    padding: 0 0 0 28px;
-  }
-  .arch-arrow .arch-loop {
-    margin-left: 12px;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    color: var(--accent);
+    letter-spacing: 0.04em;
     text-transform: uppercase;
   }
-  .arch-concepts {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-    margin-top: 36px;
+  #chat-dialog .chat-modal-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
   }
-  .arch-concept {
-    padding: 20px 22px;
-    background: var(--panel-2);
+  #chat-dialog .chat-modal-title .live-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 0 3px var(--green-soft);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  #chat-dialog .chat-modal-close {
+    background: transparent;
     border: 1px solid var(--border);
-    border-radius: 12px;
-  }
-  .arch-concept h4 {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--accent);
-    margin: 0 0 8px;
-    letter-spacing: 0;
-  }
-  .arch-concept p {
-    font-size: 14px;
     color: var(--ink-mid);
-    line-height: 1.55;
-    margin: 0;
-  }
-  .arch-concept p code {
+    border-radius: 8px;
+    padding: 6px 10px;
     font-family: var(--mono);
-    font-size: 12.5px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: color 150ms ease, border-color 150ms ease;
+  }
+  #chat-dialog .chat-modal-close:hover {
     color: var(--ink);
+    border-color: var(--border-strong);
+  }
+  #chat-dialog .chat-modal-frame {
+    width: 100%;
+    height: 76vh;
+    border: 0;
+    background: #0a0a0a;
+    display: block;
   }
 </style>
 </head>
@@ -1152,6 +1159,15 @@
               <span class="hero-exp-yrs"><span class="big">2</span>+ years experience</span>
             </li>
           </ul>
+
+          <button type="button" class="ask-trigger rv" id="ask-trigger" aria-haspopup="dialog" aria-controls="chat-dialog">
+            <span class="ask-trigger-icon" aria-hidden="true">F</span>
+            <span class="ask-trigger-text">Ask me anything about Francis...</span>
+            <span class="ask-trigger-arrow" aria-hidden="true">→</span>
+          </button>
+          <p class="ask-trigger-hint">
+            <span class="live-dot" aria-hidden="true"></span>Live multi-agent chat — orchestrator + 6 tools
+          </p>
         </div>
       </div>
     </div>
@@ -1170,27 +1186,6 @@
         <div class="logo-cell"><img src="NimbusHailRepair.png" alt="Nimbus Hail Repair" loading="lazy" /></div>
         <div class="logo-cell"><img src="Rise_black_font.jpg" alt="Rise" loading="lazy" /></div>
         <div class="logo-cell"><img src="Havenz-Tech_Horizontal_GradientBlack.png.png" alt="Havenz Tech" loading="lazy" /></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ───────── AI Demo ───────── -->
-  <section id="ai-demo">
-    <div class="shell">
-      <div class="section-head rv">
-        <div>
-          <h2 class="section-title">Live <em>multi-agent demo.</em></h2>
-        </div>
-        <a class="section-link" href="https://portfolio-agent-frontend-padronfrancis1s-projects.vercel.app/chat" target="_blank" rel="noopener">Open full screen ↗</a>
-      </div>
-
-      <div class="ai-demo-frame rv" style="margin-top: 24px;">
-        <iframe
-          src="https://portfolio-agent-frontend-padronfrancis1s-projects.vercel.app/chat"
-          title="Live multi-agent chatbot demo"
-          loading="lazy"
-          style="width: 100%; height: 580px; border: 1px solid var(--border, #2a2a2a); border-radius: 12px; background: #0a0a0a; display: block;"
-        ></iframe>
       </div>
     </div>
   </section>
@@ -1508,6 +1503,23 @@
     </div>
   </section>
 
+  <!-- ───────── Chat dialog (lazy-loaded iframe) ───────── -->
+  <dialog id="chat-dialog" aria-labelledby="chat-dialog-title">
+    <div class="chat-modal-head">
+      <span class="chat-modal-title">
+        <span class="live-dot" aria-hidden="true"></span>
+        <span id="chat-dialog-title">Live multi-agent chat</span>
+      </span>
+      <button type="button" class="chat-modal-close" id="chat-dialog-close" aria-label="Close chat">Close · Esc</button>
+    </div>
+    <iframe
+      class="chat-modal-frame"
+      id="chat-dialog-frame"
+      title="Live multi-agent chatbot demo"
+      data-src="https://portfolio-agent-frontend-padronfrancis1s-projects.vercel.app/chat"
+    ></iframe>
+  </dialog>
+
 </main>
 
 <!-- ───────── Footer ───────── -->
@@ -1606,6 +1618,44 @@
     } else {
       counters.forEach(animate);
     }
+  })();
+
+  /* ───────── Chat dialog (lazy-load iframe on first open) ───────── */
+  (function () {
+    var trigger = document.getElementById('ask-trigger');
+    var dialog = document.getElementById('chat-dialog');
+    var closeBtn = document.getElementById('chat-dialog-close');
+    var frame = document.getElementById('chat-dialog-frame');
+    if (!trigger || !dialog || !closeBtn || !frame) return;
+
+    function openDialog() {
+      // Lazy-load iframe on first open
+      if (!frame.src && frame.dataset.src) {
+        frame.src = frame.dataset.src;
+      }
+      if (typeof dialog.showModal === 'function') {
+        dialog.showModal();
+      } else {
+        dialog.setAttribute('open', '');
+      }
+    }
+
+    function closeDialog() {
+      if (typeof dialog.close === 'function') {
+        dialog.close();
+      } else {
+        dialog.removeAttribute('open');
+      }
+    }
+
+    trigger.addEventListener('click', openDialog);
+    closeBtn.addEventListener('click', closeDialog);
+
+    // Close when backdrop is clicked (the dialog itself receives the click,
+    // but children — the head bar and iframe — don't propagate beyond their own bounds)
+    dialog.addEventListener('click', function (e) {
+      if (e.target === dialog) closeDialog();
+    });
   })();
 
 </script>
