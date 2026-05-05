@@ -1358,34 +1358,28 @@
             </filter>
           </defs>
 
-          <!-- Orchestrator card: 0,70 size 150x100 — center: (75, 120) — right anchor: (150, 120) -->
-          <rect x="0" y="70" width="150" height="100" rx="12" fill="#0E1018" stroke="#3DDC84" stroke-width="1.5"/>
-          <text x="75" y="108" text-anchor="middle" font-size="26">🧠</text>
-          <text x="75" y="138" text-anchor="middle" fill="#ECEDF0" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600">Orchestrator</text>
-          <text x="75" y="156" text-anchor="middle" fill="#3DDC84" font-family="JetBrains Mono, monospace" font-size="9.5" letter-spacing="0.6">SONNET 4.6</text>
+          <!-- Orchestrator card: 0,80 size 150x80 — center: (75, 120) — right anchor: (150, 120) -->
+          <rect x="0" y="80" width="150" height="80" rx="12" fill="#0E1018" stroke="#3DDC84" stroke-width="1.5"/>
+          <text x="75" y="116" text-anchor="middle" font-size="26">🧠</text>
+          <text x="75" y="146" text-anchor="middle" fill="#ECEDF0" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600">Orchestrator</text>
 
-          <!-- Fan-out lines: anchor (150, 120) → each tool left edge -->
-          <!-- Tool grid (3 cols × 2 rows, each card 180x70):
-               Col x positions (left edge): 250, 450, 580 — wait, recompute -->
-          <!-- Tool layout: 2 rows. Row Y centers: 35, 205. Row 0 cards at y=0, row 1 at y=170 (height 70 each, gap 100) -->
-          <!-- Wait, need clean math. Using 3 cols at x = 250, 425, 600 (left edge), card width = 150, height = 60.
-               Row 0: y = 0, center = (left+75, 30). Row 1: y = 180, center = (left+75, 210).
-               Tool LEFT edge centers: (250, 30), (425, 30), (600, 30), (250, 210), (425, 210), (600, 210). -->
+          <!-- Fan-out lines: anchor (150, 120) → each tool left edge.
+               5 tools in 3+2 layout. Top row: 3 tools at x=250, 425, 600 (left edge centers at y=30).
+               Bottom row: 2 tools centered between cols 1 & 2 → x=337.5 and x=512.5 (left edge centers at y=210). -->
           <g stroke="#3DDC84" stroke-width="1.4" fill="none" opacity="0.6" filter="url(#arch-glow)">
-            <!-- Row 0 -->
+            <!-- Row 0 (top: 3 tools) -->
             <path d="M 150 120 C 200 120, 200 30, 250 30"/>
             <path d="M 150 120 C 280 120, 350 30, 425 30"/>
             <path d="M 150 120 C 350 120, 500 30, 600 30"/>
-            <!-- Row 1 -->
-            <path d="M 150 120 C 200 120, 200 210, 250 210"/>
-            <path d="M 150 120 C 280 120, 350 210, 425 210"/>
-            <path d="M 150 120 C 350 120, 500 210, 600 210"/>
+            <!-- Row 1 (bottom: 2 tools, centered) -->
+            <path d="M 150 120 C 220 120, 280 210, 337.5 210"/>
+            <path d="M 150 120 C 320 120, 430 210, 512.5 210"/>
           </g>
           <!-- Anchor dot at orchestrator right edge -->
           <circle cx="150" cy="120" r="3.5" fill="#3DDC84" filter="url(#arch-glow)"/>
 
           <!-- Tool cards: each 150 wide × 60 tall, rounded corners -->
-          <!-- Row 0 -->
+          <!-- Row 0: top 3 -->
           <g>
             <rect x="250" y="0" width="150" height="60" rx="8" fill="#0E1018" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
             <text x="265" y="28" font-size="16">🔍</text>
@@ -1404,30 +1398,24 @@
             <text x="640" y="28" fill="#ECEDF0" font-family="Inter, system-ui, sans-serif" font-size="11.5" font-weight="600">Read Section</text>
             <text x="640" y="46" fill="#6E707A" font-family="JetBrains Mono, monospace" font-size="9">Fetch full doc</text>
           </g>
-          <!-- Row 1 -->
+          <!-- Row 1: bottom 2 (centered) -->
           <g>
-            <rect x="250" y="180" width="150" height="60" rx="8" fill="#0E1018" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
-            <text x="265" y="208" font-size="16">📚</text>
-            <text x="290" y="208" fill="#ECEDF0" font-family="Inter, system-ui, sans-serif" font-size="11.5" font-weight="600">List Projects</text>
-            <text x="290" y="226" fill="#6E707A" font-family="JetBrains Mono, monospace" font-size="9">Filter by tag</text>
+            <rect x="337.5" y="180" width="150" height="60" rx="8" fill="#0E1018" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+            <text x="352.5" y="208" font-size="16">📚</text>
+            <text x="377.5" y="208" fill="#ECEDF0" font-family="Inter, system-ui, sans-serif" font-size="11.5" font-weight="600">List Projects</text>
+            <text x="377.5" y="226" fill="#6E707A" font-family="JetBrains Mono, monospace" font-size="9">Filter by tag</text>
           </g>
           <g>
-            <rect x="425" y="180" width="150" height="60" rx="8" fill="#0E1018" stroke="#3DDC84" stroke-width="1.2" opacity="0.95"/>
-            <text x="440" y="208" font-size="16">🌿</text>
-            <text x="465" y="208" fill="#ECEDF0" font-family="Inter, system-ui, sans-serif" font-size="11.5" font-weight="600">Spawn Sub-agent</text>
-            <text x="465" y="226" fill="#3DDC84" font-family="JetBrains Mono, monospace" font-size="8.5">Haiku 4.5 · isolated</text>
-          </g>
-          <g>
-            <rect x="600" y="180" width="150" height="60" rx="8" fill="#0E1018" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
-            <text x="615" y="208" font-size="16">🎙</text>
-            <text x="640" y="208" fill="#ECEDF0" font-family="Inter, system-ui, sans-serif" font-size="11.5" font-weight="600">Apply Voice</text>
-            <text x="640" y="226" fill="#6E707A" font-family="JetBrains Mono, monospace" font-size="9">LoRA SmolLM2 (soon)</text>
+            <rect x="512.5" y="180" width="150" height="60" rx="8" fill="#0E1018" stroke="#3DDC84" stroke-width="1.2" opacity="0.95"/>
+            <text x="527.5" y="208" font-size="16">🌿</text>
+            <text x="552.5" y="208" fill="#ECEDF0" font-family="Inter, system-ui, sans-serif" font-size="11.5" font-weight="600">Spawn Sub-agent</text>
+            <text x="552.5" y="226" fill="#3DDC84" font-family="JetBrains Mono, monospace" font-size="9">Multi-step research</text>
           </g>
         </svg>
       </div>
 
       <p class="arch-caption">
-        Sonnet 4.6 iteratively picks tools to answer each question. <code>Spawn Sub-agent</code> creates a Haiku 4.5 instance with its own context window for multi-step research — only the digest comes back.
+        The orchestrator iteratively picks tools to answer each question. <code>Spawn Sub-agent</code> creates a separate agent with its own context window for multi-step research — only the digest comes back to the parent.
       </p>
     </div>
   </section>
