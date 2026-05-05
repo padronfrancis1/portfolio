@@ -468,7 +468,6 @@
     grid-template-columns: 1fr auto;
     gap: 24px;
     align-items: end;
-    border-top: 1px solid var(--border);
   }
   .section-title {
     font-size: clamp(28px, 4vw, 44px);
@@ -630,6 +629,56 @@
     transition: border-color 220ms ease, transform 220ms ease;
   }
   .proj-image-link:hover .proj-image {
+    border-color: var(--accent);
+  }
+  .proj-desc .hl-stat {
+    color: var(--accent);
+    font-weight: 600;
+  }
+
+  /* ───────── Image lightbox modal ───────── */
+  #img-lightbox {
+    margin: auto;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    max-width: 95vw;
+    max-height: 95vh;
+    overflow: visible;
+  }
+  #img-lightbox::backdrop {
+    background: rgba(5, 5, 8, 0.86);
+    backdrop-filter: blur(6px);
+  }
+  #img-lightbox .lightbox-inner {
+    position: relative;
+    display: block;
+  }
+  #img-lightbox img {
+    display: block;
+    max-width: 95vw;
+    max-height: 90vh;
+    border-radius: 10px;
+    border: 1px solid var(--border-strong);
+    background: var(--bg-elev);
+  }
+  #img-lightbox .lightbox-close {
+    position: absolute;
+    top: -42px;
+    right: 0;
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    transition: color 150ms ease, border-color 150ms ease;
+  }
+  #img-lightbox .lightbox-close:hover {
+    color: var(--accent);
     border-color: var(--accent);
   }
   .proj-private-tag {
@@ -1696,7 +1745,7 @@
             <img class="proj-image" src="ufc_predictor.png" alt="UFC Fight Predictor — calibration and ROI charts" loading="lazy" />
           </a>
           <h3 class="proj-title">UFC Fight Predictor</h3>
-          <p class="proj-desc">LightGBM + Optuna + isotonic calibration that beats Vegas on 628 held-out 2025-26 fights (72.5% vs 69.8% acc, +4.7% Brier). +17.6% flat-stake ROI on edge ≥5% picks; quarter-Kelly turns $100 into ~$47K. Chronological no-leakage split, ELO computed in-time, SHAP attribution, bootstrap 95% CIs, 249 tests, mypy strict, GitHub Actions CI.</p>
+          <p class="proj-desc">LightGBM + Optuna + isotonic calibration that beats Vegas on <span class="hl-stat">628 held-out 2025-26 fights</span> (<span class="hl-stat">72.5% vs 69.8% acc</span>, <span class="hl-stat">+4.7% Brier</span>). <span class="hl-stat">+17.6% flat-stake ROI</span> on edge ≥5% picks; quarter-Kelly turns <span class="hl-stat">$100 into ~$47K</span>. Chronological no-leakage split, ELO computed in-time, SHAP attribution, bootstrap <span class="hl-stat">95% CIs</span>, <span class="hl-stat">249 tests</span>, mypy strict, GitHub Actions CI.</p>
           <div class="proj-tags">
             <span class="proj-tag">LightGBM</span><span class="proj-tag">Optuna</span><span class="proj-tag">Isotonic</span><span class="proj-tag">SHAP</span><span class="proj-tag">Hypothesis</span><span class="proj-tag">mypy strict</span>
           </div>
@@ -1728,7 +1777,7 @@
             <img class="proj-image" src="hail_cv.gif" alt="Hail-dent CV pipeline — ensemble detection on auto-body panels" loading="lazy" />
           </a>
           <h3 class="proj-title">Hail-dent CV pipeline</h3>
-          <p class="proj-desc">Ensemble vision system (YOLOv8 + Mask R-CNN + Mask2Former + RF-DETR) replacing manual auto-body inspection. Detection first, mask refinement next, transformer pass for difficult panels. 70% faster than manual inspection.</p>
+          <p class="proj-desc">Ensemble vision system (YOLOv8 + Mask R-CNN + Mask2Former + RF-DETR) replacing manual auto-body inspection. Detection first, mask refinement next, transformer pass for difficult panels. <span class="hl-stat">70% faster</span> than manual inspection.</p>
           <div class="proj-tags">
             <span class="proj-tag">YOLOv8</span><span class="proj-tag">Mask R-CNN</span><span class="proj-tag">Mask2Former</span><span class="proj-tag">RF-DETR</span><span class="proj-tag">PyTorch</span>
           </div>
@@ -1744,7 +1793,7 @@
             <img class="proj-image" src="aeso_pool_price.png" alt="AESO electricity pool-price forecast — regime-switching model" loading="lazy" />
           </a>
           <h3 class="proj-title">AESO Pool-Price Forecasting</h3>
-          <p class="proj-desc">Regime-switching LightGBM with walk-forward CV on Alberta AESO pool-price data. Designed for volatile, regime-shifting electricity markets where a single global model collapses — separate regressors per regime with a routing classifier on top.</p>
+          <p class="proj-desc"><span class="hl-stat">Regime-switching LightGBM</span> with <span class="hl-stat">walk-forward CV</span> on Alberta AESO pool-price data. Designed for volatile, regime-shifting electricity markets where a single global model collapses — <span class="hl-stat">separate regressors per regime</span> with a routing classifier on top.</p>
           <div class="proj-tags">
             <span class="proj-tag">LightGBM</span><span class="proj-tag">Walk-forward CV</span><span class="proj-tag">Regime-switching</span><span class="proj-tag">AESO</span><span class="proj-tag">Pandas</span>
           </div>
@@ -1920,6 +1969,14 @@
   </div>
 </footer>
 
+<!-- ───────── Image lightbox dialog ───────── -->
+<dialog id="img-lightbox" aria-label="Project screenshot">
+  <div class="lightbox-inner">
+    <button type="button" class="lightbox-close" aria-label="Close">Close ✕</button>
+    <img id="img-lightbox-img" src="" alt="" />
+  </div>
+</dialog>
+
 <script>
   /* ───────── Reveal on scroll ───────── */
   (function () {
@@ -1989,6 +2046,37 @@
         iframe.contentWindow.postMessage({ type: 'portfolio:ask', text: q }, '*');
       });
     });
+  })();
+
+  /* ───────── Project image → lightbox modal ───────── */
+  (function () {
+    var dialog = document.getElementById('img-lightbox');
+    var img = document.getElementById('img-lightbox-img');
+    if (!dialog || !img || typeof dialog.showModal !== 'function') return;
+
+    document.querySelectorAll('.proj-image-link').forEach(function (a) {
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        img.src = a.getAttribute('href');
+        img.alt = a.getAttribute('aria-label') || '';
+        dialog.showModal();
+      });
+    });
+
+    // Close on backdrop click (target is the <dialog> element itself, not children)
+    dialog.addEventListener('click', function (e) {
+      if (e.target === dialog) dialog.close();
+    });
+
+    // Close button
+    var closeBtn = dialog.querySelector('.lightbox-close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function () { dialog.close(); });
+    }
+
+    // Clear src on close so a re-open of the same image triggers reload (and we
+    // don't keep a large image in memory longer than needed).
+    dialog.addEventListener('close', function () { img.src = ''; });
   })();
 
 </script>
