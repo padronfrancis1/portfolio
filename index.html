@@ -128,13 +128,14 @@
   }
   .hero-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: clamp(28px, 5vw, 56px);
     align-items: center;
   }
-  @media (max-width: 900px) {
-    .hero-grid { grid-template-columns: 1fr; }
-    .hero-chat-frame { height: 540px; }
+  .hero-copy {
+    max-width: 820px;
+    margin: 0 auto;
+    width: 100%;
   }
   .hero-pill {
     display: inline-flex; align-items: center; gap: 8px;
@@ -179,34 +180,33 @@
     max-width: 52ch;
     margin: 0 0 32px;
   }
-  .hero-chat-frame {
+  /* ───────── Hero chat — inline expandable (no modal) ───────── */
+  .hero-chat-inline {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    transition: max-height 520ms cubic-bezier(0.22, 1, 0.36, 1),
+                opacity 320ms ease 80ms,
+                margin-top 320ms ease;
+  }
+  .hero-chat-inline[data-expanded="true"] {
+    max-height: 760px;
+    opacity: 1;
+    margin-top: 28px;
+  }
+  .hero-chat-inline .hero-chat-frame {
     width: 100%;
-    height: 600px;
+    height: 680px;
     border: 1px solid var(--border-strong);
     border-radius: 14px;
     background: #0a0a0a;
     display: block;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.5);
   }
-  .hero-chat-label {
-    margin: 0 0 10px;
-    padding-left: 4px;
-    font-family: var(--mono);
-    font-size: 11px;
-    letter-spacing: 0.06em;
-    color: var(--ink-dim);
-    text-transform: uppercase;
-  }
-  .hero-chat-label .live-dot {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 0 3px var(--green-soft);
-    margin-right: 8px;
-    vertical-align: middle;
-    animation: pulse 2.4s ease-in-out infinite;
+  @media (max-width: 768px) {
+    .hero-chat-inline[data-expanded="true"] { max-height: 640px; }
+    .hero-chat-inline .hero-chat-frame { height: 580px; }
   }
   .hero-exp {
     list-style: none;
@@ -1275,19 +1275,25 @@
               <span class="hero-exp-yrs"><span class="big">2</span>+ years experience</span>
             </li>
           </ul>
-        </div>
 
-        <div class="hero-chat rv">
-          <p class="hero-chat-label">
-            <span class="live-dot" aria-hidden="true"></span>Live multi-agent chat
+          <button type="button" class="ask-trigger rv" id="ask-trigger" aria-expanded="false" aria-controls="hero-chat-inline">
+            <span class="ask-trigger-icon" aria-hidden="true">F</span>
+            <span class="ask-trigger-text">Ask me anything about Francis...</span>
+            <span class="ask-trigger-arrow" aria-hidden="true">→</span>
+          </button>
+          <p class="ask-trigger-hint">
+            <span class="live-dot" aria-hidden="true"></span>Live multi-agent chat — orchestrator + 6 tools
           </p>
-          <iframe
-            class="hero-chat-frame"
-            src="https://portfolio-agent-frontend-padronfrancis1s-projects.vercel.app/chat"
-            title="Live multi-agent chatbot"
-            loading="lazy"
-          ></iframe>
         </div>
+      </div>
+
+      <div class="hero-chat-inline" id="hero-chat-inline" data-expanded="false" aria-hidden="true">
+        <iframe
+          class="hero-chat-frame"
+          id="hero-chat-frame"
+          title="Live multi-agent chatbot"
+          data-src="https://portfolio-agent-frontend-padronfrancis1s-projects.vercel.app/chat"
+        ></iframe>
       </div>
     </div>
   </section>
@@ -1759,6 +1765,40 @@
     }
   })();
 
+  /* ───────── Hero chat — inline expand on trigger click ───────── */
+  (function () {
+    var trigger = document.getElementById('ask-trigger');
+    var panel = document.getElementById('hero-chat-inline');
+    var frame = document.getElementById('hero-chat-frame');
+    if (!trigger || !panel || !frame) return;
+
+    function expand() {
+      // Lazy-load iframe on first expand
+      if (!frame.src && frame.dataset.src) {
+        frame.src = frame.dataset.src;
+      }
+      panel.dataset.expanded = 'true';
+      panel.setAttribute('aria-hidden', 'false');
+      trigger.setAttribute('aria-expanded', 'true');
+      // Smooth-scroll the panel into view after the open transition starts
+      setTimeout(function () {
+        panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }, 80);
+    }
+
+    function collapse() {
+      panel.dataset.expanded = 'false';
+      panel.setAttribute('aria-hidden', 'true');
+      trigger.setAttribute('aria-expanded', 'false');
+    }
+
+    function toggle() {
+      if (panel.dataset.expanded === 'true') collapse();
+      else expand();
+    }
+
+    trigger.addEventListener('click', toggle);
+  })();
 
 </script>
 
