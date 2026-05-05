@@ -614,9 +614,98 @@
     margin-top: 4px;
   }
   .proj-link:hover { text-decoration: underline; }
+  .proj-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: var(--bg-elev);
+  }
+  .proj-private-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+    margin-top: 4px;
+    padding: 4px 9px;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--ink-dim);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
   @media (max-width: 768px) {
     .proj-grid { grid-template-columns: 1fr; gap: 14px; }
     .proj-card { padding: 22px; gap: 12px; }
+  }
+
+  /* ───────── Public repos (compact GitHub-tile style) ───────── */
+  .repos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 32px;
+  }
+  .repo-card {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 18px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    transition: border-color 220ms ease, transform 220ms ease, background-color 220ms ease;
+  }
+  .repo-card:hover {
+    border-color: var(--accent);
+    background: var(--panel-2);
+    transform: translateY(-2px);
+  }
+  .repo-name {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+  .repo-desc {
+    font-size: 12.5px;
+    color: var(--ink-mid);
+    line-height: 1.5;
+    margin: 0;
+    flex: 1;
+  }
+  .repo-foot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .repo-tag {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    color: var(--ink-dim);
+    text-transform: uppercase;
+  }
+  .repo-link {
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+  .repo-link:hover { text-decoration: underline; }
+  @media (max-width: 1024px) {
+    .repos-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 640px) {
+    .repos-grid { grid-template-columns: 1fr; }
   }
 
   /* ───────── Featured systems (legacy — kept for repos section variants) ───────── */
@@ -1578,14 +1667,13 @@
     </div>
   </section>
 
-  <!-- ───────── Featured Projects + Public Repos ───────── -->
+  <!-- ───────── Featured Projects ───────── -->
   <section id="systems">
     <div class="shell">
       <div class="section-head rv">
         <div>
-          <h2 class="section-title">Projects &amp; <em>open source.</em></h2>
+          <h2 class="section-title">Featured <em>projects.</em></h2>
         </div>
-        <a class="section-link" href="https://github.com/padronfrancis1" target="_blank" rel="noopener">github.com/padronfrancis1 ↗</a>
       </div>
 
       <div class="proj-grid">
@@ -1593,114 +1681,109 @@
         <article class="proj-card rv">
           <div class="proj-head">
             <span class="proj-num">01</span>
-            <span class="proj-type">Multi-Agent Platform</span>
+            <span class="proj-type">Predictive ML · Open Source</span>
           </div>
-          <h3 class="proj-title">HavenzHub-AI</h3>
-          <p class="proj-desc">Multi-agent RAG with 3-tier LLM routing (OpenAI + Bedrock + Ollama), Qdrant hybrid search, cross-encoder reranking, and sub-agent architecture (Document, Business, Gmail) with HMAC webhooks and Responsible-AI guardrails.</p>
+          <img class="proj-image" src="ufc_predictor.png" alt="UFC Fight Predictor — calibration and ROI charts" loading="lazy" />
+          <h3 class="proj-title">UFC Fight Predictor</h3>
+          <p class="proj-desc">LightGBM + Optuna + isotonic calibration that beats Vegas on 628 held-out 2025-26 fights (72.5% vs 69.8% acc, +4.7% Brier). +17.6% flat-stake ROI on edge ≥5% picks; quarter-Kelly turns $100 into ~$47K. Chronological no-leakage split, ELO computed in-time, SHAP attribution, bootstrap 95% CIs, 249 tests, mypy strict, GitHub Actions CI.</p>
           <div class="proj-tags">
-            <span class="proj-tag">FastAPI</span><span class="proj-tag">LangGraph</span><span class="proj-tag">Qdrant</span><span class="proj-tag">OpenAI</span><span class="proj-tag">Bedrock</span><span class="proj-tag">Ollama</span>
+            <span class="proj-tag">LightGBM</span><span class="proj-tag">Optuna</span><span class="proj-tag">Isotonic</span><span class="proj-tag">SHAP</span><span class="proj-tag">Hypothesis</span><span class="proj-tag">mypy strict</span>
           </div>
+          <a class="proj-link" href="https://github.com/padronfrancis1/UFC-fight-predictor" target="_blank" rel="noopener">View on GitHub →</a>
         </article>
 
         <article class="proj-card rv">
           <div class="proj-head">
             <span class="proj-num">02</span>
-            <span class="proj-type">Computer Vision</span>
+            <span class="proj-type">Agentic AI Demo</span>
           </div>
-          <h3 class="proj-title">Hail-dent CV pipeline</h3>
-          <p class="proj-desc">Ensemble vision system (YOLOv8 + Mask R-CNN + Mask2Former + RF-DETR) replacing manual auto-body inspection. Detection first, mask refinement next, transformer pass for difficult panels. 70% faster than manual inspection.</p>
+          <img class="proj-image" src="portfolio_agent.png" alt="Portfolio-Agent — Claude Code-style multi-agent chat UI" loading="lazy" />
+          <h3 class="proj-title">Portfolio-Agent (this chat)</h3>
+          <p class="proj-desc">A Claude Code-style agent loop you can chat with at the top of this page. Sonnet 4.6 supervisor iteratively calls typed tools and spawns Haiku 4.5 sub-agents over a Qdrant-indexed corpus, with live orchestration animation, per-agent token meter, and USD cost tracking.</p>
           <div class="proj-tags">
-            <span class="proj-tag">YOLOv8</span><span class="proj-tag">Mask R-CNN</span><span class="proj-tag">Mask2Former</span><span class="proj-tag">RF-DETR</span><span class="proj-tag">PyTorch</span>
+            <span class="proj-tag">FastAPI</span><span class="proj-tag">Next.js 16</span><span class="proj-tag">Anthropic SDK</span><span class="proj-tag">SSE</span><span class="proj-tag">Vercel</span><span class="proj-tag">Fly.io</span>
           </div>
+          <a class="proj-link" href="https://github.com/padronfrancis1/portfolio-agent" target="_blank" rel="noopener">View on GitHub →</a>
         </article>
 
         <article class="proj-card rv">
           <div class="proj-head">
             <span class="proj-num">03</span>
-            <span class="proj-type">Fine-Tuning</span>
+            <span class="proj-type">Computer Vision</span>
           </div>
-          <h3 class="proj-title">SLM fine-tuning at scale</h3>
-          <p class="proj-desc">SFT, DPO, and LoRA via Unsloth + TRL across Llama 3.1 8B, Qwen 2.5, and SmolLM2. ZenML for reproducibility. Smaller models that punch above their weight on task-specific work — and run on commodity hardware.</p>
+          <img class="proj-image" src="hail_cv.gif" alt="Hail-dent CV pipeline — ensemble detection on auto-body panels" loading="lazy" />
+          <h3 class="proj-title">Hail-dent CV pipeline</h3>
+          <p class="proj-desc">Ensemble vision system (YOLOv8 + Mask R-CNN + Mask2Former + RF-DETR) replacing manual auto-body inspection. Detection first, mask refinement next, transformer pass for difficult panels. 70% faster than manual inspection.</p>
           <div class="proj-tags">
-            <span class="proj-tag">Unsloth</span><span class="proj-tag">TRL</span><span class="proj-tag">ZenML</span><span class="proj-tag">PEFT/LoRA</span><span class="proj-tag">PyTorch</span>
+            <span class="proj-tag">YOLOv8</span><span class="proj-tag">Mask R-CNN</span><span class="proj-tag">Mask2Former</span><span class="proj-tag">RF-DETR</span><span class="proj-tag">PyTorch</span>
           </div>
+          <span class="proj-private-tag">Code: private — walkthrough on request</span>
         </article>
 
         <article class="proj-card rv">
           <div class="proj-head">
             <span class="proj-num">04</span>
-            <span class="proj-type">From-Scratch Transformer</span>
+            <span class="proj-type">Time-series Forecasting</span>
           </div>
-          <h3 class="proj-title">SLM from scratch (12M params)</h3>
-          <p class="proj-desc">PyTorch transformer built from scratch with DeepSeek-style innovations: Multi-Head Latent Attention (MLA), DeepSeekMoE with bias-adjustment load balancing, and Multi-Token Prediction. Trained on TinyStories.</p>
+          <img class="proj-image" src="aeso_pool_price.png" alt="AESO electricity pool-price forecast — regime-switching model" loading="lazy" />
+          <h3 class="proj-title">AESO Pool-Price Forecasting</h3>
+          <p class="proj-desc">Regime-switching LightGBM with walk-forward CV on Alberta AESO pool-price data. Designed for volatile, regime-shifting electricity markets where a single global model collapses — separate regressors per regime with a routing classifier on top.</p>
           <div class="proj-tags">
-            <span class="proj-tag">PyTorch</span><span class="proj-tag">MLA</span><span class="proj-tag">MoE</span><span class="proj-tag">MTP</span><span class="proj-tag">RoPE</span>
+            <span class="proj-tag">LightGBM</span><span class="proj-tag">Walk-forward CV</span><span class="proj-tag">Regime-switching</span><span class="proj-tag">AESO</span><span class="proj-tag">Pandas</span>
           </div>
-          <a class="proj-link" href="https://github.com/padronfrancis1/slm-from-scratch" target="_blank" rel="noopener">View on GitHub →</a>
+          <span class="proj-private-tag">Code: private — walkthrough on request</span>
         </article>
 
-        <article class="proj-card rv">
-          <div class="proj-head">
-            <span class="proj-num">05</span>
-            <span class="proj-type">Agentic AI Demo</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────── Public Repos ───────── -->
+  <section id="repos">
+    <div class="shell">
+      <div class="section-head rv">
+        <div>
+          <h2 class="section-title">Public <em>repos.</em></h2>
+        </div>
+        <a class="section-link" href="https://github.com/padronfrancis1" target="_blank" rel="noopener">github.com/padronfrancis1 ↗</a>
+      </div>
+
+      <div class="repos-grid">
+
+        <article class="repo-card rv">
+          <h3 class="repo-name">slm-from-scratch</h3>
+          <p class="repo-desc">12M-param PyTorch transformer with DeepSeek-style MLA, MoE, and Multi-Token Prediction. Trained on TinyStories.</p>
+          <div class="repo-foot">
+            <span class="repo-tag">PyTorch</span>
+            <a class="repo-link" href="https://github.com/padronfrancis1/slm-from-scratch" target="_blank" rel="noopener">GitHub →</a>
           </div>
-          <h3 class="proj-title">Portfolio-Agent (this chat)</h3>
-          <p class="proj-desc">A Claude Code-style agent loop you can chat with at the top of this page. FastAPI orchestrator iteratively calls 6 typed tools, with sub-agent isolation. Inline tool-call accordions + traveling-dot animation in the header.</p>
-          <div class="proj-tags">
-            <span class="proj-tag">FastAPI</span><span class="proj-tag">Next.js</span><span class="proj-tag">Anthropic SDK</span><span class="proj-tag">SSE</span><span class="proj-tag">Vercel</span>
-          </div>
-          <a class="proj-link" href="#top">↑ Try it at the top of this page</a>
         </article>
 
-        <article class="proj-card rv">
-          <div class="proj-head">
-            <span class="proj-num">06</span>
-            <span class="proj-type">On-Prem Agent</span>
-          </div>
-          <h3 class="proj-title">Sleek Signs Quote Agent</h3>
-          <p class="proj-desc">Fully on-prem RAG (Ollama + ChromaDB) so PII never leaves the building. Turns freeform sales requests into priced signage quotes via tool-calling against Zoho CRM. Daily feedback pipeline retrains the routing classifier.</p>
-          <div class="proj-tags">
-            <span class="proj-tag">Ollama</span><span class="proj-tag">ChromaDB</span><span class="proj-tag">LangGraph</span><span class="proj-tag">Zoho CRM</span><span class="proj-tag">FastAPI</span>
+        <article class="repo-card rv">
+          <h3 class="repo-name">oil-production-volve</h3>
+          <p class="repo-desc">Time-series modeling on the Volve dataset — production curves with classical ML and deep-learning approaches.</p>
+          <div class="repo-foot">
+            <span class="repo-tag">Notebook</span>
+            <a class="repo-link" href="https://github.com/padronfrancis1/Predictive-Modeling-of-Oil-Production-Wells-Volve-Dataset-" target="_blank" rel="noopener">GitHub →</a>
           </div>
         </article>
 
-        <article class="proj-card rv">
-          <div class="proj-head">
-            <span class="proj-num">07</span>
-            <span class="proj-type">Open Source · Time-series</span>
+        <article class="repo-card rv">
+          <h3 class="repo-name">pipeline-leak-detection</h3>
+          <p class="repo-desc">Audio-signal anomaly detection for industrial pipeline monitoring. Feature engineering plus ML classifiers.</p>
+          <div class="repo-foot">
+            <span class="repo-tag">Audio ML</span>
+            <a class="repo-link" href="https://github.com/padronfrancis1/Pipeline-Leak-Detection" target="_blank" rel="noopener">GitHub →</a>
           </div>
-          <h3 class="proj-title">Oil-Production Well Forecasting</h3>
-          <p class="proj-desc">Time-series modeling on the Volve dataset — forecasting production curves with classical ML and deep-learning approaches in a single notebook.</p>
-          <div class="proj-tags">
-            <span class="proj-tag">Python</span><span class="proj-tag">Notebook</span><span class="proj-tag">Time-series</span><span class="proj-tag">Volve</span>
-          </div>
-          <a class="proj-link" href="https://github.com/padronfrancis1/Predictive-Modeling-of-Oil-Production-Wells-Volve-Dataset-" target="_blank" rel="noopener">View on GitHub →</a>
         </article>
 
-        <article class="proj-card rv">
-          <div class="proj-head">
-            <span class="proj-num">08</span>
-            <span class="proj-type">Open Source · Audio ML</span>
+        <article class="repo-card rv">
+          <h3 class="repo-name">customer-churn-prediction</h3>
+          <p class="repo-desc">End-to-end classification — preprocessing, modeling, and evaluation in one notebook.</p>
+          <div class="repo-foot">
+            <span class="repo-tag">Scikit-learn</span>
+            <a class="repo-link" href="https://github.com/padronfrancis1/Customer-Churn-Prediction" target="_blank" rel="noopener">GitHub →</a>
           </div>
-          <h3 class="proj-title">Pipeline Leak Detection</h3>
-          <p class="proj-desc">Audio-signal anomaly detection for industrial pipeline monitoring. Feature engineering on raw acoustic data plus ML classifiers to flag leak events early.</p>
-          <div class="proj-tags">
-            <span class="proj-tag">Python</span><span class="proj-tag">Audio ML</span><span class="proj-tag">Anomaly detection</span>
-          </div>
-          <a class="proj-link" href="https://github.com/padronfrancis1/Pipeline-Leak-Detection" target="_blank" rel="noopener">View on GitHub →</a>
-        </article>
-
-        <article class="proj-card rv">
-          <div class="proj-head">
-            <span class="proj-num">09</span>
-            <span class="proj-type">Open Source · Classification</span>
-          </div>
-          <h3 class="proj-title">Customer Churn Prediction</h3>
-          <p class="proj-desc">End-to-end classification pipeline — preprocessing, modeling, and evaluation in one notebook. Standard ML techniques applied to a real churn problem.</p>
-          <div class="proj-tags">
-            <span class="proj-tag">Notebook</span><span class="proj-tag">Classification</span><span class="proj-tag">Scikit-learn</span>
-          </div>
-          <a class="proj-link" href="https://github.com/padronfrancis1/Customer-Churn-Prediction" target="_blank" rel="noopener">View on GitHub →</a>
         </article>
 
       </div>
