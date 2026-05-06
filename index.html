@@ -713,8 +713,12 @@
     letter-spacing: 0.04em;
   }
   @media (max-width: 768px) {
-    .proj-grid { grid-template-columns: 1fr; gap: 14px; }
-    .proj-card { padding: 22px; gap: 12px; }
+    .proj-grid { grid-template-columns: 1fr; gap: 16px; }
+    .proj-card { padding: 24px; gap: 14px; }
+    .proj-title { font-size: 23px; }
+    .proj-desc { font-size: 15.5px; line-height: 1.6; }
+    .proj-tag { font-size: 12px; padding: 5px 10px; }
+    .proj-head { font-size: 12.5px; }
   }
 
   /* ───────── Public repos (compact GitHub-tile style) ───────── */
@@ -1755,6 +1759,22 @@
         <article class="proj-card rv">
           <div class="proj-head">
             <span class="proj-num">01</span>
+            <span class="proj-type">Computer Vision</span>
+          </div>
+          <a class="proj-image-link" href="hail_cv.gif" target="_blank" rel="noopener" aria-label="Open Hail-dent CV demo in new tab">
+            <img class="proj-image" src="hail_cv.gif" alt="Hail-dent CV pipeline — ensemble detection on auto-body panels" loading="lazy" />
+          </a>
+          <h3 class="proj-title">Hail-dent CV pipeline</h3>
+          <p class="proj-desc">Ensemble vision system (YOLOv8 + Mask R-CNN + Mask2Former + RF-DETR) replacing manual auto-body inspection. Detection first, mask refinement next, transformer pass for difficult panels. <span class="hl-stat">70% faster</span> than manual inspection.</p>
+          <div class="proj-tags">
+            <span class="proj-tag">YOLOv8</span><span class="proj-tag">Mask R-CNN</span><span class="proj-tag">Mask2Former</span><span class="proj-tag">RF-DETR</span><span class="proj-tag">PyTorch</span>
+          </div>
+          <span class="proj-private-tag">Code: private — walkthrough on request</span>
+        </article>
+
+        <article class="proj-card rv">
+          <div class="proj-head">
+            <span class="proj-num">02</span>
             <span class="proj-type">Predictive ML</span>
           </div>
           <a class="proj-image-link" href="ufc_predictor.png" target="_blank" rel="noopener" aria-label="Open UFC Fight Predictor screenshot in new tab">
@@ -1770,7 +1790,7 @@
 
         <article class="proj-card rv">
           <div class="proj-head">
-            <span class="proj-num">02</span>
+            <span class="proj-num">03</span>
             <span class="proj-type">Agentic AI Demo</span>
           </div>
           <a class="proj-image-link" href="portfolio_agent.png" target="_blank" rel="noopener" aria-label="Open Portfolio-Agent screenshot in new tab">
@@ -1782,22 +1802,6 @@
             <span class="proj-tag">FastAPI</span><span class="proj-tag">Next.js 16</span><span class="proj-tag">Anthropic SDK</span><span class="proj-tag">SSE</span><span class="proj-tag">Vercel</span><span class="proj-tag">Fly.io</span>
           </div>
           <a class="proj-link" href="https://github.com/padronfrancis1/portfolio-agent" target="_blank" rel="noopener">View on GitHub →</a>
-        </article>
-
-        <article class="proj-card rv">
-          <div class="proj-head">
-            <span class="proj-num">03</span>
-            <span class="proj-type">Computer Vision</span>
-          </div>
-          <a class="proj-image-link" href="hail_cv.gif" target="_blank" rel="noopener" aria-label="Open Hail-dent CV demo in new tab">
-            <img class="proj-image" src="hail_cv.gif" alt="Hail-dent CV pipeline — ensemble detection on auto-body panels" loading="lazy" />
-          </a>
-          <h3 class="proj-title">Hail-dent CV pipeline</h3>
-          <p class="proj-desc">Ensemble vision system (YOLOv8 + Mask R-CNN + Mask2Former + RF-DETR) replacing manual auto-body inspection. Detection first, mask refinement next, transformer pass for difficult panels. <span class="hl-stat">70% faster</span> than manual inspection.</p>
-          <div class="proj-tags">
-            <span class="proj-tag">YOLOv8</span><span class="proj-tag">Mask R-CNN</span><span class="proj-tag">Mask2Former</span><span class="proj-tag">RF-DETR</span><span class="proj-tag">PyTorch</span>
-          </div>
-          <span class="proj-private-tag">Code: private — walkthrough on request</span>
         </article>
 
         <article class="proj-card rv">
