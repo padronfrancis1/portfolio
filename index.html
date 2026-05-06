@@ -261,7 +261,7 @@
   #ai-architecture { padding: clamp(40px, 6vh, 72px) 0 clamp(28px, 4vh, 56px); }
   .arch-svg-wrap {
     margin: 28px auto 0;
-    max-width: 760px;
+    max-width: 880px;
     width: 100%;
   }
   .arch-svg {
@@ -284,6 +284,23 @@
     background: var(--bg-elev);
     padding: 1px 6px;
     border-radius: 4px;
+  }
+  @media (max-width: 768px) {
+    .arch-svg-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+      /* subtle right-edge fade to hint that the diagram scrolls */
+      -webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
+              mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
+    }
+    .arch-svg {
+      min-width: 680px;
+    }
+    .arch-caption {
+      font-size: 13px;
+      padding: 0 16px;
+    }
   }
   .hero-exp {
     list-style: none;
