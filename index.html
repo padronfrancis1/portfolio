@@ -269,6 +269,7 @@
     height: auto;
     display: block;
   }
+  .arch-svg-mobile { display: none; }
   .arch-caption {
     margin: 20px auto 0;
     max-width: 720px;
@@ -286,17 +287,8 @@
     border-radius: 4px;
   }
   @media (max-width: 768px) {
-    .arch-svg-wrap {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 8px;
-      /* subtle right-edge fade to hint that the diagram scrolls */
-      -webkit-mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
-              mask-image: linear-gradient(to right, black calc(100% - 24px), transparent);
-    }
-    .arch-svg {
-      min-width: 680px;
-    }
+    .arch-svg-desktop { display: none; }
+    .arch-svg-mobile  { display: block; }
     .arch-caption {
       font-size: 13px;
       padding: 0 16px;
@@ -360,9 +352,32 @@
   }
 
   @media (max-width: 480px) {
-    .hero-exp li { grid-template-columns: auto 1fr; gap: 12px; }
-    .hero-exp-yrs { grid-column: 2; justify-self: end; }
-    .hero-exp-area { grid-column: 1 / -1; grid-row: 2; padding-left: 0; }
+    .hero-exp li {
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto;
+      gap: 0 12px;
+      padding: 26px 6px 22px;
+    }
+    .hero-exp-num {
+      grid-column: 1;
+      grid-row: 1;
+      align-self: start;
+      padding-top: 6px;
+    }
+    .hero-exp-area {
+      grid-column: 2;
+      grid-row: 1;
+      padding-top: 6px;
+    }
+    .hero-exp-yrs {
+      grid-column: 1 / -1;
+      grid-row: 2;
+      justify-self: start;
+      margin-top: 8px;
+    }
+    .hero-exp-yrs .big {
+      font-size: clamp(56px, 16vw, 84px);
+    }
   }
   .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
   .btn {
@@ -1581,7 +1596,7 @@
       </div>
 
       <div class="arch-svg-wrap rv">
-        <svg class="arch-svg" viewBox="0 0 760 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orchestrator with fan-out lines to 6 tools">
+        <svg class="arch-svg arch-svg-desktop" viewBox="0 0 760 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orchestrator with fan-out lines to 6 tools">
           <defs>
             <filter id="arch-glow" x="-50%" y="-50%" width="200%" height="200%">
               <feGaussianBlur stdDeviation="2" result="blur"/>
@@ -1644,6 +1659,73 @@
             <text x="527.5" y="208" font-size="16">🌿</text>
             <text x="552.5" y="208" fill="#ECEDF0" font-family="Inter, system-ui, sans-serif" font-size="11.5" font-weight="600">Spawn Sub-agent</text>
             <text x="552.5" y="226" fill="#3DDC84" font-family="JetBrains Mono, monospace" font-size="9">Multi-step research</text>
+          </g>
+        </svg>
+        <svg class="arch-svg arch-svg-mobile" viewBox="0 0 360 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Orchestrator with branches to 5 tools (vertical layout)">
+          <defs>
+            <filter id="arch-glow-m" x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="2" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+
+          <!-- Orchestrator card centered at top -->
+          <rect x="105" y="10" width="150" height="70" rx="12" fill="#0E1018" stroke="#3DDC84" stroke-width="1.5"/>
+          <text x="180" y="42" text-anchor="middle" font-size="22">🧠</text>
+          <text x="180" y="68" text-anchor="middle" fill="#ECEDF0" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600">Orchestrator</text>
+
+          <!-- Trunk + branches -->
+          <g stroke="#3DDC84" stroke-width="1.4" fill="none" opacity="0.6" filter="url(#arch-glow-m)">
+            <path d="M 180 80 L 180 540"/>
+            <path d="M 180 140 L 200 140"/>
+            <path d="M 180 240 L 160 240"/>
+            <path d="M 180 340 L 200 340"/>
+            <path d="M 180 440 L 160 440"/>
+            <path d="M 180 540 L 200 540"/>
+          </g>
+          <circle cx="180" cy="80" r="3.5" fill="#3DDC84" filter="url(#arch-glow-m)"/>
+
+          <!-- Tool 1 — Search Resume (right) -->
+          <g>
+            <rect x="200" y="110" width="150" height="60" rx="8" fill="#0E1018" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+            <text x="215" y="138" font-size="16">🔍</text>
+            <text x="240" y="138" fill="#ECEDF0" font-family="Inter, system-ui, sans-serif" font-size="11.5" font-weight="600">Search Resume</text>
+            <text x="240" y="156" fill="#6E707A" font-family="JetBrains Mono, monospace" font-size="9">Semantic search</text>
+          </g>
+
+          <!-- Tool 2 — Find Keywords (left) -->
+          <g>
+            <rect x="10" y="210" width="150" height="60" rx="8" fill="#0E1018" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+            <text x="25" y="238" font-size="16">📋</text>
+            <text x="50" y="238" fill="#ECEDF0" font-family="Inter, system-ui, sans-serif" font-size="11.5" font-weight="600">Find Keywords</text>
+            <text x="50" y="256" fill="#6E707A" font-family="JetBrains Mono, monospace" font-size="9">Exact match</text>
+          </g>
+
+          <!-- Tool 3 — Read Section (right) -->
+          <g>
+            <rect x="200" y="310" width="150" height="60" rx="8" fill="#0E1018" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+            <text x="215" y="338" font-size="16">📄</text>
+            <text x="240" y="338" fill="#ECEDF0" font-family="Inter, system-ui, sans-serif" font-size="11.5" font-weight="600">Read Section</text>
+            <text x="240" y="356" fill="#6E707A" font-family="JetBrains Mono, monospace" font-size="9">Fetch full doc</text>
+          </g>
+
+          <!-- Tool 4 — List Projects (left) -->
+          <g>
+            <rect x="10" y="410" width="150" height="60" rx="8" fill="#0E1018" stroke="rgba(255,255,255,0.14)" stroke-width="1"/>
+            <text x="25" y="438" font-size="16">📚</text>
+            <text x="50" y="438" fill="#ECEDF0" font-family="Inter, system-ui, sans-serif" font-size="11.5" font-weight="600">List Projects</text>
+            <text x="50" y="456" fill="#6E707A" font-family="JetBrains Mono, monospace" font-size="9">Filter by tag</text>
+          </g>
+
+          <!-- Tool 5 — Spawn Sub-agent (right, highlighted) -->
+          <g>
+            <rect x="200" y="510" width="150" height="60" rx="8" fill="#0E1018" stroke="#3DDC84" stroke-width="1.2" opacity="0.95"/>
+            <text x="215" y="538" font-size="16">🌿</text>
+            <text x="240" y="538" fill="#ECEDF0" font-family="Inter, system-ui, sans-serif" font-size="11.5" font-weight="600">Spawn Sub-agent</text>
+            <text x="240" y="556" fill="#3DDC84" font-family="JetBrains Mono, monospace" font-size="9">Multi-step research</text>
           </g>
         </svg>
       </div>
