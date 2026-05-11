@@ -271,19 +271,6 @@
     display: block;
   }
   .arch-svg-mobile { display: none; }
-  /* Animated flow along orchestrator → tool connectors */
-  .arch-lines path {
-    stroke-dasharray: 4 6;
-    animation: arch-flow 2.4s linear infinite;
-  }
-  .arch-lines path:nth-child(2) { animation-delay: 0.3s; }
-  .arch-lines path:nth-child(3) { animation-delay: 0.6s; }
-  .arch-lines path:nth-child(4) { animation-delay: 0.9s; }
-  .arch-lines path:nth-child(5) { animation-delay: 1.2s; }
-  .arch-lines path:nth-child(6) { animation-delay: 1.5s; }
-  @keyframes arch-flow {
-    to { stroke-dashoffset: -10; }
-  }
   .arch-caption {
     margin: 20px auto 0;
     max-width: 720px;
@@ -1540,6 +1527,18 @@
                 <feMergeNode in="SourceGraphic"/>
               </feMerge>
             </filter>
+            <!-- Animated wiggle: turbulence noise displaces the line geometry, then glow. -->
+            <filter id="arch-wiggle" x="-30%" y="-30%" width="160%" height="160%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="3" result="noise">
+                <animate attributeName="baseFrequency" dur="7s" values="0.010;0.028;0.010" repeatCount="indefinite"/>
+              </feTurbulence>
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" result="displaced"/>
+              <feGaussianBlur in="displaced" stdDeviation="2" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="displaced"/>
+              </feMerge>
+            </filter>
           </defs>
 
           <!-- Orchestrator card: 0,80 size 150x80 — center: (75, 120) — right anchor: (150, 120) -->
@@ -1550,7 +1549,7 @@
           <!-- Fan-out lines: anchor (150, 120) → each tool left edge.
                5 tools in 3+2 layout. Top row: 3 tools at x=250, 425, 600 (left edge centers at y=30).
                Bottom row: 2 tools centered between cols 1 & 2 → x=337.5 and x=512.5 (left edge centers at y=210). -->
-          <g class="arch-lines" stroke="#3DDC84" stroke-width="1.4" fill="none" opacity="0.6" filter="url(#arch-glow)">
+          <g class="arch-lines" stroke="#3DDC84" stroke-width="1.6" fill="none" opacity="0.75" filter="url(#arch-wiggle)">
             <!-- Row 0 (top: 3 tools) -->
             <path d="M 150 120 C 200 120, 200 30, 250 30"/>
             <path d="M 150 120 C 280 120, 350 30, 425 30"/>
@@ -1612,6 +1611,17 @@
                 <feMergeNode in="SourceGraphic"/>
               </feMerge>
             </filter>
+            <filter id="arch-wiggle-m" x="-30%" y="-30%" width="160%" height="160%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="2" seed="5" result="noise">
+                <animate attributeName="baseFrequency" dur="7s" values="0.010;0.028;0.010" repeatCount="indefinite"/>
+              </feTurbulence>
+              <feDisplacementMap in="SourceGraphic" in2="noise" scale="5" result="displaced"/>
+              <feGaussianBlur in="displaced" stdDeviation="2" result="blur"/>
+              <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="displaced"/>
+              </feMerge>
+            </filter>
           </defs>
 
           <!-- Orchestrator card centered at top -->
@@ -1620,7 +1630,7 @@
           <text x="180" y="68" text-anchor="middle" fill="#ECEDF0" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600">Orchestrator</text>
 
           <!-- Trunk + branches -->
-          <g class="arch-lines" stroke="#3DDC84" stroke-width="1.4" fill="none" opacity="0.6" filter="url(#arch-glow-m)">
+          <g class="arch-lines" stroke="#3DDC84" stroke-width="1.6" fill="none" opacity="0.75" filter="url(#arch-wiggle-m)">
             <path d="M 180 80 L 180 540"/>
             <path d="M 180 140 L 200 140"/>
             <path d="M 180 240 L 160 240"/>
