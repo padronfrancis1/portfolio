@@ -120,18 +120,18 @@
   }
   .nav-links a { color: var(--ink-mid); transition: color .2s ease; }
   .nav-links a:hover { color: var(--ink); }
-  .nav-cta {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 7px 14px;
-    border: 1px solid var(--border-strong);
+  .brand-status {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 4px 12px 4px 8px;
     border-radius: 999px;
     font-family: var(--sans);
-    font-size: 13px; letter-spacing: 0.02em;
-    color: var(--ink);
-    font-weight: 600;
-    transition: border-color .2s ease, background .2s ease;
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: var(--ink-mid);
+    transition: color .2s ease, background .2s ease;
   }
-  .nav-cta:hover { background: var(--panel); border-color: var(--accent); }
+  .brand-status:hover { color: var(--ink); background: var(--panel); }
   .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 4px var(--green-soft); animation: pulse 2.4s ease-in-out infinite; }
   @keyframes pulse {
     0%, 100% { box-shadow: 0 0 0 0 var(--green-soft); }
@@ -1252,7 +1252,8 @@
 
   @media (max-width: 720px) {
     .nav-links { display: none; }
-    .nav-cta { margin-left: auto; }
+    .brand-status { margin-left: auto; padding-right: 8px; }
+    .brand-status-text { display: none; }
     body { font-size: 14.5px; }
     .systems-grid { grid-template-columns: 1fr; }
     .span-3, .span-2, .span-4, .span-6 { grid-column: span 1; }
@@ -1420,6 +1421,10 @@
     <a class="brand" href="#top">
       <span class="brand-mark">F</span>
       francis.padron
+    </a>
+    <a class="brand-status" href="mailto:padronfrancis1@gmail.com" aria-label="Available for work — email Francis">
+      <span class="dot" aria-hidden="true"></span>
+      <span class="brand-status-text">Available for work</span>
     </a>
     <nav class="nav-links" aria-label="Sections">
       <a href="#skills">Stack</a>
