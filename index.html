@@ -350,27 +350,25 @@
 
   @media (max-width: 480px) {
     .hero-exp li {
-      grid-template-columns: auto 1fr;
-      grid-template-rows: auto auto;
-      gap: 0 12px;
-      padding: 26px 6px 22px;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 6px;
+      padding: 28px 6px 24px;
+      text-align: center;
+      justify-items: center;
     }
     .hero-exp-num {
       grid-column: 1;
       grid-row: 1;
-      align-self: start;
-      padding-top: 6px;
     }
     .hero-exp-area {
-      grid-column: 2;
-      grid-row: 1;
-      padding-top: 6px;
+      grid-column: 1;
+      grid-row: 2;
     }
     .hero-exp-yrs {
-      grid-column: 1 / -1;
-      grid-row: 2;
-      justify-self: start;
-      margin-top: 8px;
+      grid-column: 1;
+      grid-row: 3;
+      margin-top: 6px;
     }
     .hero-exp-yrs .big {
       font-size: clamp(56px, 16vw, 84px);
