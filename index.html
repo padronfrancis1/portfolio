@@ -575,12 +575,52 @@
     line-height: 1.2;
   }
   .proj-hook {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
     font-family: var(--sans);
     font-size: 16px;
     font-weight: 600;
     color: var(--accent);
     margin: 0;
     letter-spacing: -0.005em;
+    width: fit-content;
+  }
+  .proj-hook::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-soft);
+    animation: hook-pulse 2.4s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes hook-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 var(--accent-soft); }
+    50% { box-shadow: 0 0 0 6px transparent; }
+  }
+  .proj-hook .hook-text {
+    background: linear-gradient(
+      90deg,
+      var(--accent) 0%, var(--accent) 40%,
+      #ffffff 50%,
+      var(--accent) 60%, var(--accent) 100%
+    );
+    background-size: 240% 100%;
+    background-position: 100% 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: hook-shimmer 6s ease-in-out infinite;
+  }
+  @keyframes hook-shimmer {
+    0%, 70%, 100% { background-position: 100% 0; }
+    40% { background-position: -50% 0; }
+  }
+  .proj-hook .hook-text.caret::after {
+    -webkit-text-fill-color: var(--accent);
+    color: var(--accent);
   }
   .proj-desc {
     font-size: 14.5px;
@@ -1805,6 +1845,7 @@
             <img class="proj-image" src="hail_cv.gif" alt="Hail-dent CV pipeline — ensemble detection on auto-body panels" loading="lazy" />
           </a>
           <h3 class="proj-title">Hail-dent CV pipeline</h3>
+          <p class="proj-hook"><span class="hook-text">Beat human estimators at spotting hail damage.</span></p>
           <p class="proj-desc">Computer-vision system that automates hail-damage inspection on auto-body panels — replacing manual estimator workflow. Four detection and segmentation models run in a pipeline: spot dents, refine outlines, then a transformer pass for tough panels. <span class="hl-stat">70% faster</span> than manual inspection.</p>
           <div class="proj-tags">
             <span class="proj-tag">YOLOv8</span><span class="proj-tag">Mask R-CNN</span><span class="proj-tag">Mask2Former</span><span class="proj-tag">RF-DETR</span><span class="proj-tag">PyTorch</span>
@@ -1821,7 +1862,7 @@
             <img class="proj-image" src="ufc_predictor.png" alt="UFC Fight Predictor — calibration and ROI charts" loading="lazy" />
           </a>
           <h3 class="proj-title">UFC Fight Predictor</h3>
-          <p class="proj-hook">Beat Vegas at picking UFC fights.</p>
+          <p class="proj-hook"><span class="hook-text">Beat Vegas at picking UFC fights.</span></p>
           <p class="proj-desc">Machine-learning model that predicts UFC fight outcomes more accurately than Vegas odds. On <span class="hl-stat">628 held-out 2025-26 fights</span> it picked winners <span class="hl-stat">72.5% vs Vegas's 69.8%</span>, and a small wagering strategy on its high-confidence picks would have turned <span class="hl-stat">$100 into ~$47K</span>. Trained chronologically with no future-data leakage, validated end-to-end with <span class="hl-stat">249 tests</span>, strict typing, and CI.</p>
           <div class="proj-tags">
             <span class="proj-tag">LightGBM</span><span class="proj-tag">Optuna</span><span class="proj-tag">Isotonic</span><span class="proj-tag">SHAP</span><span class="proj-tag">Hypothesis</span><span class="proj-tag">mypy strict</span>
@@ -1839,6 +1880,7 @@
             <img class="proj-image" src="portfolio_agent.png" alt="Portfolio-Agent — Claude Code-style multi-agent chat UI" loading="lazy" />
           </a>
           <h3 class="proj-title">Portfolio-Agent (this chat)</h3>
+          <p class="proj-hook"><span class="hook-text caret">Like Claude Code — but it knows my résumé.</span></p>
           <p class="proj-desc">The chatbot at the top of this page. A Claude-powered supervisor agent uses tools to search Francis's resume and spawns a smaller sub-agent for deeper research questions. Each tool call, token count, and live USD cost is streamed back to the UI in real time.</p>
           <div class="proj-tags">
             <span class="proj-tag">FastAPI</span><span class="proj-tag">Next.js 15</span><span class="proj-tag">Anthropic SDK</span><span class="proj-tag">SSE</span><span class="proj-tag">Vercel</span><span class="proj-tag">Fly.io</span>
@@ -1856,7 +1898,7 @@
             <img class="proj-image" src="aeso_pool_price.png" alt="AESO electricity pool-price forecast — regime-switching model" loading="lazy" />
           </a>
           <h3 class="proj-title">AESO Pool-Price Forecasting</h3>
-          <p class="proj-hook">Beat AESO's own price forecasts.</p>
+          <p class="proj-hook"><span class="hook-text">Beat AESO's own price forecasts.</span></p>
           <p class="proj-desc">Forecasting model for Alberta's volatile wholesale electricity market. A single model collapses on this data because the market shifts between distinct price regimes — this one trains a <span class="hl-stat">separate forecaster per regime</span> with a classifier routing each prediction to the right one. Validated with <span class="hl-stat">walk-forward time-series testing</span> to mimic real-world deployment.</p>
           <div class="proj-tags">
             <span class="proj-tag">LightGBM</span><span class="proj-tag">Walk-forward CV</span><span class="proj-tag">Regime-switching</span><span class="proj-tag">AESO</span><span class="proj-tag">Pandas</span>
